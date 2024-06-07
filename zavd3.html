@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Операції з часом</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>Операції з часом</h1>
+    <button onclick="displayTime()">Показати час</button><br>
+    <button onclick="changeSeconds(parseInt(prompt('Введіть кількість секунд для зміни:')))">Змінити секунди</button><br>
+    <button onclick="changeMinutes(parseInt(prompt('Введіть кількість хвилин для зміни:')))">Змінити хвилини</button><br>
+    <button onclick="changeHours(parseInt(prompt('Введіть кількість годин для зміни:')))">Змінити години</button>
+</div>
+</body>
+</html>
+<script>
+    const time = {
+        hours: 20,
+        minutes: 30,
+        seconds: 45
+    };
+
+    function displayTime() {
+        alert(`Час: ${formatTime(time.hours)}:${formatTime(time.minutes)}:${formatTime(time.seconds)}`);
+    }
+
+    function formatTime(unit) {
+        return unit < 10 ? '0' + unit : unit;
+    }
+
+    function changeSeconds(seconds) {
+        time.seconds += seconds;
+        normalizeTime();
+        displayTime();
+    }
+
+    function changeMinutes(minutes) {
+        time.minutes += minutes;
+        normalizeTime();
+        displayTime();
+    }
+
+    function changeHours(hours) {
+        time.hours += hours;
+        normalizeTime();
+        displayTime();
+    }
+
+    function normalizeTime() {
+        while (time.seconds >= 60) {
+            time.seconds -= 60;
+            time.minutes++;
+        }
+        while (time.minutes >= 60) {
+            time.minutes -= 60;
+            time.hours++;
+        }
+        while (time.hours >= 24) {
+            time.hours -= 24;
+        }
+
+        while (time.seconds < 0) {
+            time.seconds += 60;
+            time.minutes--;
+        }
+        while (time.minutes < 0) {
+            time.minutes += 60;
+            time.hours--;
+        }
+        while (time.hours < 0) {
+            time.hours += 24;
+        }
+    }
+</script>

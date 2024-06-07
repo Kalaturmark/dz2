@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автомобіль</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>Інформація про автомобіль</h1>
+    <button onclick="displayCarInfo()">Показати інформацію про автомобіль</button><br>
+    <button onclick="calculateTravelTime()">Розрахувати час у дорозі</button>
+</div>
+</body>
+</html>
+<script>
+    const car = {
+        manufacturer: "Toyota",
+        model: "Corolla",
+        year: 2020,
+        averageSpeed: 60
+    };
+
+    function displayCarInfo() {
+        const info = `Виробник: ${car.manufacturer}\nМодель: ${car.model}\nРік випуску: ${car.year}\nСередня швидкість: ${car.averageSpeed} км/год`;
+        alert(info);
+    }
+
+    function calculateTravelTime() {
+        const distance = parseFloat(prompt("Введіть відстань у кілометрах:"));
+        const timeWithoutBreaks = distance / car.averageSpeed;
+        const breaks = Math.floor(timeWithoutBreaks / 4);
+        const totalTime = timeWithoutBreaks + breaks;
+        alert(`Для подолання відстані ${distance} км знадобиться ${totalTime.toFixed(2)} годин (включаючи перерви).`);
+    }
+</script>

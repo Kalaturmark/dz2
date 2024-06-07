@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Операції з дробами</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .container {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <h1>Операції з дробами</h1>
+    <button onclick="performOperation('add')">Додати дроби</button><br>
+    <button onclick="performOperation('subtract')">Відняти дроби</button><br>
+    <button onclick="performOperation('multiply')">Множити дроби</button><br>
+    <button onclick="performOperation('divide')">Ділити дроби</button><br>
+    <button onclick="performOperation('simplify')">Скоротити дріб</button>
+</div>
+</body>
+</html>
+<script>
+    function Fraction(numerator, denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
+    }
+
+    function addFractions(frac1, frac2) {
+        const numerator = frac1.numerator * frac2.denominator + frac2.numerator * frac1.denominator;
+        const denominator = frac1.denominator * frac2.denominator;
+        return simplifyFraction(new Fraction(numerator, denominator));
+    }
+
+    function subtractFractions(frac1, frac2) {
+        const numerator = frac1.numerator * frac2.denominator - frac2.numerator * frac1.denominator;
+        const denominator = frac1.denominator * frac2.denominator;
+        return simplifyFraction(new Fraction(numerator, denominator));
+    }
+
+    function multiplyFractions(frac1, frac2) {
+        const numerator = frac1.numerator * frac2.numerator;
+        const denominator = frac1.denominator * frac2.denominator;
+        return simplifyFraction(new Fraction(numerator, denominator));
+    }
+
+    function divideFractions(frac1, frac2) {
+        const numerator = frac1.numerator * frac2.denominator;
+        const denominator = frac1.denominator * frac2.numerator;
+        return simplifyFraction(new Fraction(numerator, denominator));
+    }
+
+    function simplifyFraction(frac) {
+        const gcd = function(a, b) {
+            return b ? gcd(b, a % b) : a;
+        };
+        const commonDivisor = gcd(frac.numerator, frac.denominator);
+        return new Fraction(frac.numerator / commonDivisor, frac.denominator / commonDivisor);
+    }
+
+    function getFractionInput(promptText) {
+        const input = prompt(promptText).split("/");
+        return new Fraction(parseInt(input[0]), parseInt(input[1]));
+    }
+
+    function displayResult(result, operation) {
+        alert(`Результат ${operation}: ${result.numerator}/${result.denominator}`);
+    }
+
+    function performOperation(operation) {
+        const frac1 = getFractionInput("Введіть першу дріб (у форматі чисельник/знаменник):");
+        const frac2 = getFractionInput("Введіть другу дріб (у форматі чисельник/знаменник):");
+        let result;
+
+        switch (operation) {
+            case 'add':
+                result = addFractions(frac1, frac2);
+                displayResult(result, "додавання");
+                break;
+            case 'subtract':
+                result = subtractFractions(frac1, frac2);
+                displayResult(result, "віднімання");
+                break;
+            case 'multiply':
+                result = multiplyFractions(frac1, frac2);
+                displayResult(result, "множення");
+                break;
+            case 'divide':
+                result = divideFractions(frac1, frac2);
+                displayResult(result, "ділення");
+                break;
+            case 'simplify':
+                result = simplifyFraction(frac1);
+                displayResult(result, "скорочення");
+                break;
+            default:
+                alert("Невідома операція");
+        }
+    }
+</script>
